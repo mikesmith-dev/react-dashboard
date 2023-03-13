@@ -6,11 +6,13 @@ import CssBaseline from "@mui/material/CssBaseline";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
+import Avatar from "@mui/material/Avatar";
+import Chip from "@mui/material/Chip";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -22,8 +24,11 @@ import { useContext, useEffect } from "react";
 import { ColorModeContext, tokens } from "../../theme";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import Badge from "@mui/material/Badge";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat';
+import SettingsIcon from '@mui/icons-material/Settings';
+import SsidChartIcon from '@mui/icons-material/SsidChart';
+import Badge from "@mui/material/Badge";
 import CustomCard from "../Card/CustomCard";
 import Chart from "react-apexcharts";
 import { Card, Grid } from "@mui/material";
@@ -80,7 +85,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export default function Sidebar() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
   const Data = {
@@ -585,7 +590,7 @@ export default function Sidebar() {
   return (
     <Box sx={{ display: "flex" }}>
       <AppBar position="fixed" open={open}>
-        <Toolbar>
+        <Toolbar sx={{ background: "#1D2445" }}>
           <IconButton
             size="large"
             edge="start"
@@ -593,7 +598,7 @@ export default function Sidebar() {
             aria-label="open drawer"
             sx={{ mr: 2, ...(open && { display: "none" }) }}
           >
-            <MenuIcon style={{ color: theme.palette.primary.main }} />
+            <MenuIcon style={{ color: "white" }} />
           </IconButton>
           <Typography
             variant="h6"
@@ -602,38 +607,32 @@ export default function Sidebar() {
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           ></Typography>
 
-          <Box sx={{ display: { xs: "block",sm:"block", md: "flex" }, justifyContent:"space-between" }}>
-            <IconButton onClick={colorMode.toggleColorMode} size="large">
-              {theme.palette.mode === "dark" ? (
-                <DarkModeOutlinedIcon
-                  style={{ color: theme.palette.primary.main }}
-                />
-              ) : (
-                <LightModeOutlinedIcon
-                  style={{ color: theme.palette.primary.main }}
-                />
-              )}
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color={theme.palette.primary.main}
-            >
-              <Badge badgeContent={4} color="error">
-                <MailIcon style={{ color: theme.palette.primary.main }} />
-              </Badge>
-            </IconButton>
+          <Box sx={{ display: { xs: "block", sm: "block", md: "flex" }, justifyContent: "space-between", alignItems: "center" }}>
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={17} color="error">
+              <Badge badgeContent={17} color="primary">
                 <NotificationsIcon
-                  style={{ color: theme.palette.primary.main }}
+                  style={{ color: "white" }}
                 />
               </Badge>
             </IconButton>
+            <IconButton onClick={colorMode.toggleColorMode} size="large">
+              <LightModeOutlinedIcon
+                style={{ color: "white" }}
+              />
+            </IconButton>
+            <div style={{ backgroundImage: "url('../logo-light.svg')", width: "100%", height: "100%", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}></div>
+            <Chip
+              label="Timothy's Org"
+              avatar={<Avatar alt="Timothy's Org" src="/static/images/avatar/1.jpg" />}
+              onDelete={() => console.log('hello')}
+              deleteIcon={<KeyboardArrowDownIcon style={{ color: "white" }} />}
+              variant="outlined"
+              sx={{ color: "white", backgroundColor: "#3C4667" }}
+            />
           </Box>
         </Toolbar>
       </AppBar>
@@ -644,73 +643,59 @@ export default function Sidebar() {
           "& .MuiDrawer-paper": {
             width: drawerWidth,
             boxSizing: "border-box",
-          },
+          }
         }}
         variant="persistent"
         anchor="left"
         open={open}
       >
-        <DrawerHeader sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography
-            variant="h4"
-            noWrap
-            component="div"
-            fontWeight="bold"
-            sx={{
-              display: "flex",
-              flex: 4,
-              ml: "3rem",
-              color: theme.palette.primary.main,
-            }}
-          >
-            Digital market
-          </Typography>
+        <DrawerHeader sx={{ display: "flex", justifyContent: "space-between", background: "#0B1535" }}>
+          <div style={{backgroundImage: "url('../logo-light.svg')", width: "100%", height: "100%", backgroundRepeat: "no-repeat", backgroundPosition: "center"}}></div>
           <IconButton
             onClick={handleDrawerClose}
-            color={theme.palette.primary.main}
           >
             {theme.direction === "ltr" ? (
-              <MenuIcon style={{ color: theme.palette.primary.main }} />
+              <MenuIcon style={{ color: "white" }} />
             ) : (
-              <MenuIcon style={{ color: theme.palette.primary.main }} />
+              <MenuIcon style={{ color: "white" }} />
             )}
           </IconButton>
         </DrawerHeader>
-        <List>
+        <List sx={{ background: "#0B1535", color: "white", height: "100%" }}>
           <ListItem key="Dashboard" disablePadding selected={true}>
             <ListItemButton>
               <ListItemIcon>
-                <InboxIcon style={{ color: theme.palette.primary.dark }} />
+                <InboxIcon style={{ color: "white" }} />
               </ListItemIcon>
               <ListItemText primary="Dashboard" />
             </ListItemButton>
             <Divider color="#b7eb00" />
           </ListItem>
           {/* <Divider color="#b7eb00" /> */}
-          <ListItem key="Sale" disablePadding>
+          <ListItem key="Devices" disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <InboxIcon />
+                <DeviceThermostatIcon style={{ color: "white" }} />
               </ListItemIcon>
-              <ListItemText primary="Sale" />
-            </ListItemButton>
-          </ListItem>
-          {/* <Divider color="#b7eb00"  /> */}
-          <ListItem key="Purchase" disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary="Purchase" />
+              <ListItemText primary="Devices" />
             </ListItemButton>
           </ListItem>
           {/* <Divider color="#b7eb00" /> */}
-          <ListItem key="Connection" disablePadding>
+          <ListItem key="Usage" disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <InboxIcon />
+                <SsidChartIcon style={{ color: "white" }} />
               </ListItemIcon>
-              <ListItemText primary="Connection" />
+              <ListItemText primary="Usage" />
+            </ListItemButton>
+          </ListItem>
+          {/* <Divider color="#b7eb00"  /> */}
+          <ListItem key="Settings" disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <SettingsIcon style={{ color: "white" }} />
+              </ListItemIcon>
+              <ListItemText primary="Settings" />
             </ListItemButton>
           </ListItem>
           {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
@@ -727,19 +712,6 @@ export default function Sidebar() {
           ))} */}
           {/* <Divider color="#b7eb00" sx={{ height:1.5}} /> */}
         </List>
-
-        {/* <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List> */}
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
@@ -927,8 +899,8 @@ export default function Sidebar() {
                 Total Growth
               </Typography>
               <Typography variant="h5" color={theme.palette.primary.main}>
-              Company Total Growth Displayed Here
-             </Typography>
+                Company Total Growth Displayed Here
+              </Typography>
               {/* <Chart options={data.options} series={data.series} type="bar" width={500} height={320} /> */}
               <Chart {...Data} />
             </Box>
